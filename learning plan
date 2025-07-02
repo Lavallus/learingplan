@@ -1,0 +1,70 @@
+from fpdf import FPDF
+
+# Create PDF document
+pdf = FPDF()
+pdf.add_page()
+pdf.set_auto_page_break(auto=True, margin=15)
+pdf.set_font("Arial", 'B', 16)
+pdf.cell(0, 10, "Learning Path: How to Stay Motivated and Not Be Lazy", ln=True, align='C')
+
+pdf.set_font("Arial", '', 12)
+
+stages = [
+    ("🌱 Stage 1: Understand Yourself and Motivation", "3–5 Days", "Identify your patterns of laziness, learn what motivation really is, and start reflecting.", [
+        "Read:\n  - 'Drive' by Daniel Pink\n  - 'Atomic Habits' by James Clear",
+        "Watch:\n  - TED Talk: “The Puzzle of Motivation” by Dan Pink\n  - YouTube: “Why You Procrastinate” by Kurzgesagt"
+    ], [
+        "Reflect in a journal:\n  - What do I avoid doing, and why?\n  - When do I feel most motivated?",
+        "Take a free personality quiz (e.g., 16personalities.com)"
+    ]),
+    ("🔧 Stage 2: Build Foundational Habits", "1–2 Weeks", "Start forming simple daily routines that reduce mental resistance and increase energy.", [
+        "Research the Habit Loop: cue → routine → reward",
+        "Learn about dopamine and behavior"
+    ], [
+        "Start a morning routine:\n  - Wake up at the same time\n  - Make your bed\n  - Move for 5–10 min",
+        "Follow 'No Zero Days' Rule: do 1 productive task daily"
+    ]),
+    ("🧠 Stage 3: Train Your Mindset", "2 Weeks", "Reframe laziness as a signal, not a flaw. Build a mindset of progress over perfection.", [
+        "Read:\n  - 'The War of Art' by Steven Pressfield\n  - 'Mindset' by Carol Dweck",
+        "Watch:\n  - Videos by Nathaniel Drew or Matt D'Avella"
+    ], [
+        "Journal daily:\n  - What did I do today?\n  - What excuse did I make?",
+        "Practice 5-min visualization",
+        "Use positive self-talk"
+    ]),
+    ("🎯 Stage 4: Build Systems for Consistency", "3–4 Weeks", "Replace motivation with systems that make action inevitable.", [
+        "Read:\n  - 'The 5 Second Rule' by Mel Robbins\n  - 'Deep Work' by Cal Newport",
+        "Watch productivity videos (Ali Abdaal, Pomodoro, etc.)"
+    ], [
+        "Use a planner or calendar",
+        "Batch similar tasks",
+        "Design your environment (remove distractions)"
+    ]),
+    ("🔄 Stage 5: Maintain and Adjust", "Ongoing", "Review, improve, and prevent burnout. Track what works.", [], [
+        "Weekly Review (30 min):\n  - What worked?\n  - What was hard?\n  - What to improve?",
+        "Watch for burnout and allow imperfection"
+    ])
+]
+
+for title, duration, goal, learn, do in stages:
+    pdf.ln(10)
+    pdf.set_font("Arial", 'B', 14)
+    pdf.multi_cell(0, 10, title)
+    pdf.set_font("Arial", 'I', 12)
+    pdf.cell(0, 8, f"Duration: {duration}", ln=True)
+    pdf.multi_cell(0, 8, f"Goal: {goal}")
+    if learn:
+        pdf.set_font("Arial", 'B', 12)
+        pdf.cell(0, 8, "Learn:", ln=True)
+        pdf.set_font("Arial", '', 12)
+        for item in learn:
+            pdf.multi_cell(0, 8, f"- {item}")
+    if do:
+        pdf.set_font("Arial", 'B', 12)
+        pdf.cell(0, 8, "Do:", ln=True)
+        pdf.set_font("Arial", '', 12)
+        for item in do:
+            pdf.multi_cell(0, 8, f"- {item}")
+
+# Save the PDF
+pdf.output("Learning_Path_Motivation.pdf")
